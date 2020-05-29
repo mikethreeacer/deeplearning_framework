@@ -212,3 +212,17 @@ def train(epochs, train_loader, test_loader, model, optimizer, criterion, save_p
             
 
 train(10, train_loader, test_loader, net, optimizer, criterion, '/home/jeff/tett.pth', 2, min_change = 0.01)
+
+model = torch.load('/home/jeff/tett.pth')
+if torch.cuda.is_available():
+    model.cuda()
+model.eval()
+
+image = Image.open('/home/jeff/Downloads/self-built-masked-face-recognition-dataset/AFDB_face_dataset/aidai/1_0_aidai_0001.jpg')
+image = transform_test(image)
+image = image.unsqueeze(0)
+image = image.cuda()
+output = model(image)
+output = output.cpu()
+output = output.numpy()
+print(output)
