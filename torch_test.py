@@ -226,3 +226,8 @@ output = model(image)
 output = output.cpu()
 output = output.numpy()
 print(output)
+
+# to ONNX
+# dummy_input = torch.randn(batch_size, C, H, W)
+dummy_input = torch.randn(32, 3, 224, 224)
+torch.onnx.export(model, dummpy_input, "test.onnx", verbose = True)
